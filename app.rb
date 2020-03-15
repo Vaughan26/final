@@ -18,17 +18,7 @@ events_table = DB.from(:events)
 rsvps_table = DB.from(:rsvps)
 users_table = DB.from(:users)
 
-require './app'
-run Sinatra::Application
 
-account_sid = "ACf46f69e488377e7d50ec3413657ada6e"
-auth_token = "82ed9f299e2b47c27bfdb704a85b8dc1"
-client = Twilio::REST::Client.new(account_sid, auth_token)
-client.messages.create(
-  from: "+13342185933", 
-  to: "+16162401287",
-  body: "Stupid login code"
-)
 
 before do
     @current_user = users_table.where(id: session["user_id"]).to_a[0]
@@ -166,6 +156,14 @@ post "/logins/create" do
         if BCrypt::Password.new(@user[:password]) == params["password"]
          
             session["user_id"] = @user[:id]
+            account_sid = "ACf46f69e488377e7d50ec3413657ada6e"
+            auth_token = "82ed9f299e2b47c27bfdb704a85b8dc1"
+            client = Twilio::REST::Client.new(account_sid, auth_token)
+            client.messages.create(
+             from: "+13342185933", 
+             to: "+16162401287",
+            body: "Stupid login code"
+)
             redirect "/"
         else
             view "create_login_failed"

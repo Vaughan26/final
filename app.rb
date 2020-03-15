@@ -156,8 +156,8 @@ post "/logins/create" do
         if BCrypt::Password.new(@user[:password]) == params["password"]
          
             session["user_id"] = @user[:id]
-            account_sid = "ACf46f69e488377e7d50ec3413657ada6e"
-            auth_token = "82ed9f299e2b47c27bfdb704a85b8dc1"
+            account_sid = ENV["Twilo_AS"]
+            auth_token = ENV["Twilio_AT"]
             client = Twilio::REST::Client.new(account_sid, auth_token)
             client.messages.create(
              from: "+13342185933", 

@@ -30,7 +30,7 @@ end
 events_table = DB.from(:events)
 
 events_table.insert(title: "Run, try not to die", 
-                    description: "In this even you will run. If possible, please don't die",
+                    description: "In this event you will run. If possible, please don't die",
                     date: "February 1",
                     location: "Hell")
 
